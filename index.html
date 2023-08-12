@@ -21,10 +21,40 @@
     <h1 class="title title--main">Etch-a-Sketch</h1>
   </header>
   <main>
-    <div class="grid">
-      <!-- squares are injected via javascript -->
+    <div class="container">
+      <div class="settings-top">
+        <label for="color-picker">
+          <span class="sr-only">Pick a color</span>
+          <input type="color" id="color-picker" name="color-picker" class="settings-top__color-picker" />
+        </label>
+        <button id="color-randomizer" class="settings-top__color-randomizer">
+          <span class="sr-only">Select Random Colors</span>
+        </button>
+        <label for="user-grid-input">
+          <span class="sr-only">Change Grid</span>
+          <input type="text" id="user-grid-input" name="user-grid-input" value="16" class="settings-top__user-input" />
+          <span id="grid-size-placeholder" class="placeholder-text">x 16</span>
+        </label>
+      </div>
+      <div id="grid" class="grid">
+        <!-- squares are injected via javascript -->
+      </div>
+      <div class="settings-bottom">
+        <button id="clear-all" class="settings-bottom__clear-all">
+          Clear All
+        </button>
+        <label for="pen">
+          <input type="radio" id="pen" name="tool" value="pen" class="settings-bottom__tool settings-bottom__tool--pen"
+            checked />
+          <span class="sr-only">Select Pen</span>
+        </label>
+        <label for="eraser">
+          <input type="radio" id="eraser" name="tool" value="eraser"
+            class="settings-bottom__tool settings-bottom__tool--eraser" />
+          <span class="sr-only">Select Eraser</span>
+        </label>
+      </div>
     </div>
-    <div class="settings"></div>
   </main>
   <footer>
     <p>
