@@ -19,29 +19,32 @@
 </head>
 
 <body>
-  <header>
-    <h1 class="title title--main">Etch-a-Sketch</h1>
-  </header>
+  <header></header>
   <main>
     <div class="container">
       <div class="settings-top">
-        <label for="color-picker">
-          <span class="sr-only">Pick a color</span>
-          <input type="color" id="color-picker" name="color-picker" class="settings-top__color-picker" />
-        </label>
-        <button id="color-randomizer" class="settings-top__color-randomizer">
-          <span class="sr-only">Select Random Colors</span>
-        </button>
-        <label for="user-grid-input">
-          <span class="sr-only">Change Grid</span>
-          <input type="text" id="user-grid-input" name="user-grid-input" value="16" class="settings-top__user-input" />
-          <span id="grid-size-placeholder" class="placeholder-text">x 16</span>
-        </label>
+        <h1 class="settings-top__title">Etch-a-Sketch</h1>
+        <div class="tools-group">
+          <label for="color-picker">
+            <span class="sr-only">Pick a color</span>
+            <input type="color" id="color-picker" name="color-picker" value="#ffb721"
+              class="settings-top__color-picker" />
+          </label>
+          <button id="color-randomizer" class="settings-top__color-randomizer">
+            <span class="sr-only">Select Random Colors</span>
+          </button>
+          <label for="user-grid-input">
+            <span class="sr-only">Change Grid</span>
+            <input type="text" id="user-grid-input" name="user-grid-input" value="16"
+              class="settings-top__user-input" />
+            <span id="grid-size-placeholder" class="placeholder-text">x16</span>
+          </label>
+        </div>
       </div>
       <div id="grid" class="grid">
         <!-- squares are injected via javascript -->
       </div>
-      <div class="settings-bottom">
+      <div class="settings-bottom | tools-group">
         <button id="clear-all" class="settings-bottom__clear-all">
           Clear All
         </button>
