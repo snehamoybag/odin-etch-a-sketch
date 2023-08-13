@@ -1,0 +1,34 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.grid {
+  --grid-max-width: 960px;
+  width: 100%;
+  max-width: var(--grid-max-width);
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.grid__square {
+  width: var(--square-width);
+  aspect-ratio: 1/1;
+  border: 1px solid red;
+}
+
+/* Hiding class, making content visible only to screen readers but not visually */
+/* "sr" meaning "screen-reader" */
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
