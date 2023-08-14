@@ -4,6 +4,7 @@
 
   --clr-neutral-100: hsl(0, 0%, 100%);
   --clr-neutral-200: hsl(0, 0%, 90%);
+  --clr-neutral-500: hsl(0, 0%, 50%);
   --clr-neutral-700: hsl(0, 0%, 15%);
 
   --ff-primary: "Roboto", sans-serif;
@@ -167,7 +168,7 @@ button:active {
 .grid__square {
   width: var(--square-size);
   height: var(--square-size);
-  border: 1px solid red;
+  border: 0.1px solid var(--clr-neutral-500);
 }
 
 .footer {
