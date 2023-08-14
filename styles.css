@@ -2,8 +2,6 @@
   --clr-primary-400: hsl(206, 100%, 75%);
   --clr-primary-600: hsl(206, 100%, 65%);
 
-  --clr-secondary-400: hsl(40.5, 100%, 56.5%);
-
   --clr-neutral-100: hsl(0, 0%, 100%);
   --clr-neutral-200: hsl(0, 0%, 90%);
   --clr-neutral-700: hsl(0, 0%, 15%);
@@ -171,6 +169,16 @@ button:active {
   border: 1px solid red;
 }
 
+.footer {
+  text-align: center;
+  padding: 2em;
+  margin-top: 5rem;
+}
+
+.footer p:nth-of-type(2) {
+  margin-top: 0.5rem;
+}
+
 /* UTILITY CLASSES */
 .flex-group {
   display: flex;
@@ -196,10 +204,8 @@ button:active {
   opacity: 0.5;
 }
 
-.active,
-.active:focus-visible {
-  outline: 2px solid var(--clr-neutral-700);
-  outline-offset: 0.2em;
+.active {
+  transform: scale(1.15);
 }
 
 .disabled {
