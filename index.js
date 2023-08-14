@@ -12,18 +12,24 @@ const updateGridSizePlaceholder = () => {
   placeholderEl.textContent = "x" + userInputEl.value;
 };
 
-const appendASquare = (gridEl, totalNumOfSquares) => {
+const renderSquares = (squaresPerRow, totalNumOfSquares) => {
+  const gridEl = document.querySelector("#grid");
   const gridWidth = gridEl.offsetWidth;
-  const squareWidth = gridWidth / totalNumOfSquares;
+  const squareWidth = gridWidth / squaresPerRow;
 
   const squareEl = document.createElement("div");
   squareEl.classList.add("grid__square");
   squareEl.style.setProperty("--square-size", `${squareWidth}px`);
 
-  gridEl.appendChild(squareEl);
+  // remove prevous squares
+  gridEl.innerHTML = "";
+  for (let i = 1; i <= totalNumOfSquares; i++) {
+    const clonedSquareEl = squareEl.cloneNode(false);
+    gridEl.appendChild(clonedSquareEl);
+  }
 };
 
-const renderSquares = () => {
+const updateGridLayout = () => {
   const userInputNum = parseInt(userInputEl.value);
 
   if (userInputEl.value === "") {
@@ -43,18 +49,14 @@ const renderSquares = () => {
     updateInputValue(userInputEl, 100);
   }
 
-  const gridEl = document.querySelector("#grid");
-  gridEl.innerHTML = ""; // clear previous squares
   const totalSquares = Math.pow(userInputNum, 2); // square of user input
-  for (let i = 1; i <= totalSquares; i++) {
-    appendASquare(gridEl, userInputNum);
-  }
+  renderSquares(userInputNum, totalSquares);
 };
 
 // render squares on pageload. Amount depends on Html input value
-renderSquares();
+updateGridLayout();
 
 // user input event listeners
-userInputEl.addEventListener("change", renderSquares);
+userInputEl.addEventListener("change", updateGridLayout);
 userInputEl.addEventListener("change", updateGridSizePlaceholder);
 userInputEl.addEventListener("input", updateGridSizePlaceholder);
