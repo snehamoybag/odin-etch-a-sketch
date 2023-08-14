@@ -152,20 +152,21 @@ button:active {
 }
 
 .grid {
-  --grid-max-width: 960px;
   --grid-bg-clr: var(--clr-neutral-100);
   width: 100%;
-  max-width: var(--grid-max-width);
+  max-width: 960px;
   aspect-ratio: 1/1;
   background-color: var(--grid-bg-clr);
   display: flex;
   flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
   margin: 0 auto;
 }
 
 .grid__square {
-  width: var(--square-width);
-  aspect-ratio: 1/1;
+  width: var(--square-size);
+  height: var(--square-size);
   border: 1px solid red;
 }
 
