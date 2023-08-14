@@ -211,3 +211,17 @@ button:active {
 .disabled {
   opacity: 0.5;
 }
+
+/* TABLET & DESKTOP SCREENS */
+@media (min-width: 45em) {
+  :root {
+    --fs-200: 0.875rem;
+    --fs-300: 1rem;
+    --fs-400: 1.25rem;
+  }
+
+  .settings-top,
+  .settings-bottom {
+    padding: 1em 4em;
+  }
+}
