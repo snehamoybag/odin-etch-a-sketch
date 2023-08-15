@@ -1,5 +1,20 @@
 const userInputEl = document.querySelector("#user-grid-input");
 
+// constructor to create and update different modes
+function ModeConstructor(defaultModeName) {
+  let _mode = defaultModeName;
+  this.set = function (modeName) {
+    _mode = modeName;
+  };
+  this.get = function () {
+    return _mode;
+  };
+}
+
+const colorMode = new ModeConstructor("single-color");
+const toolMode = new ModeConstructor("pen");
+
+// updates the placeholderText beside the user input field
 const updateGridSizePlaceholder = () => {
   const placeholderEl = document.querySelector("#grid-size-placeholder");
   placeholderEl.textContent = "x" + userInputEl.value;
@@ -46,6 +61,29 @@ const updateGridLayout = () => {
   renderSquares(userInputNum, totalSquares);
 };
 
+// simulate mouseover event on touch devices
+// only works on "touchmove" event
+// source: https://gist.github.com/VehpuS/6fd5dca2ea8cd0eb0471
+const sketchWithTouch = (event) => {
+  const touch = event.touches[0];
+  const touchedEl = document.elementFromPoint(touch.clientX, touch.clientY);
+  const isTouchedElASquare =
+    touchedEl && touchedEl.classList.contains("grid__square");
+  if (!isTouchedElASquare) return;
+
+  const selectedColor = document.querySelector("#color-picker").value;
+  touchedEl.style.setProperty("--square-clr", selectedColor);
+};
+
+const sketchWithMouse = (event) => {
+  const target = event.target;
+  const isTargetASquare = target && target.classList.contains("grid__square");
+  if (!isTargetASquare) return;
+
+  const selectedColor = document.querySelector("#color-picker").value;
+  target.style.setProperty("--square-clr", selectedColor);
+};
+
 // render squares on pageload. Amount depends on Html input value
 updateGridLayout();
 
@@ -55,3 +93,17 @@ userInputEl.addEventListener("change", () => {
   updateGridSizePlaceholder();
 });
 userInputEl.addEventListener("input", updateGridSizePlaceholder);
+
+// update color modes
+const colorPickerEl = document.querySelector("#color-picker");
+const colorRandomizerEl = document.querySelector("#color-randomizer");
+
+colorPickerEl.addEventListener("click", () => colorMode.set("single-color"));
+colorRandomizerEl.addEventListener("click", () =>
+  colorMode.set("random-color")
+);
+
+// update grid
+const gridEl = document.querySelector("#grid");
+gridEl.addEventListener("touchmove", sketchWithTouch);
+gridEl.addEventListener("mouseover", sketchWithMouse);
