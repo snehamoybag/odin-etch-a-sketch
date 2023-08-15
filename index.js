@@ -1,12 +1,5 @@
 const userInputEl = document.querySelector("#user-grid-input");
 
-const updateInputValue = (el, val) => {
-  // updates html attribute
-  el.setAttribute("value", val);
-  // updates text inside the input field
-  el.value = val;
-};
-
 const updateGridSizePlaceholder = () => {
   const placeholderEl = document.querySelector("#grid-size-placeholder");
   placeholderEl.textContent = "x" + userInputEl.value;
@@ -41,12 +34,12 @@ const updateGridLayout = () => {
 
   if (userInputNum <= 0) {
     alert("Grid can not be smaller than 1x1");
-    updateInputValue(userInputEl, 1);
+    return;
   }
 
   if (userInputNum > 100) {
     alert("Due to technical limitations, we only allow a grid upto 100x100");
-    updateInputValue(userInputEl, 100);
+    return;
   }
 
   const totalSquares = Math.pow(userInputNum, 2); // square of user input
@@ -57,6 +50,8 @@ const updateGridLayout = () => {
 updateGridLayout();
 
 // user input event listeners
-userInputEl.addEventListener("change", updateGridLayout);
-userInputEl.addEventListener("change", updateGridSizePlaceholder);
+userInputEl.addEventListener("change", () => {
+  updateGridLayout();
+  updateGridSizePlaceholder();
+});
 userInputEl.addEventListener("input", updateGridSizePlaceholder);
