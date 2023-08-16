@@ -3,11 +3,15 @@ const userInputEl = document.querySelector("#user-grid-input");
 // constructor to create and update different modes
 function ModeConstructor(defaultModeName) {
   let _mode = defaultModeName;
-  this.set = function (modeName) {
+  this.set = function(modeName) {
     _mode = modeName;
   };
-  this.get = function () {
+  this.get = function() {
     return _mode;
+  };
+  this.activateEl = function(activateEl, deactivateEl) {
+    deactivateEl.classList.remove("active");
+    activateEl.classList.add("active");
   };
 }
 
@@ -16,14 +20,14 @@ const toolMode = new ModeConstructor("pen");
 
 // grid square behaviour constructor
 function SquareBehaviour() {
-  const createASquare = function (squareWidth) {
+  const createASquare = function(squareWidth) {
     const squareEl = document.createElement("div");
     squareEl.classList.add("grid__square");
     squareEl.style.setProperty("--square-size", `${squareWidth}px`);
     return squareEl;
   };
 
-  this.render = function (parentEl, width, numOfSquares) {
+  this.render = function(parentEl, width, numOfSquares) {
     const squareEl = createASquare(width);
     for (let i = 1; i <= numOfSquares; i++) {
       const clonedSquareEl = squareEl.cloneNode(false); // shallow copy
@@ -31,16 +35,16 @@ function SquareBehaviour() {
     }
   };
 
-  this.removeAll = function (parentEl) {
+  this.removeAll = function(parentEl) {
     const allSquareEls = parentEl.querySelectorAll(".grid__square");
     allSquareEls.forEach((square) => parentEl.removeChild(square));
   };
 
-  this.changeColor = function (squareEl, color) {
+  this.changeColor = function(squareEl, color) {
     squareEl.style.setProperty("--square-clr", color);
   };
 
-  this.removeAllColors = function (parentEl) {
+  this.removeAllColors = function(parentEl) {
     const allSquareEls = parentEl.querySelectorAll(".grid__square");
     allSquareEls.forEach((squareEl) => {
       this.changeColor(squareEl, "transparent");
@@ -82,6 +86,22 @@ const updateGridLayout = () => {
   square.render(gridEl, squareWidth, totalSquares);
 };
 
+const modifySquares = (el) => {
+  if (toolMode.get() === "pen" && colorMode.get() === "single-color") {
+    const selectedColor = document.querySelector("#color-picker").value;
+    square.changeColor(el, selectedColor);
+  }
+
+  if (toolMode.get() === "pen" && colorMode.get() === "random-color") {
+    // square.changeColor(el, getRandomColor())
+    console.log("random color node on");
+  }
+
+  if (toolMode.get() === "eraser") {
+    square.changeColor(el, "transparent");
+  }
+};
+
 // simulate mouseover event on touch devices
 // only works on "touchmove" event
 // source: https://gist.github.com/VehpuS/6fd5dca2ea8cd0eb0471
@@ -92,8 +112,7 @@ const sketchWithTouch = (event) => {
     touchedEl && touchedEl.classList.contains("grid__square");
 
   if (!isTouchedElASquare) return;
-  const selectedColor = document.querySelector("#color-picker").value;
-  square.changeColor(touchedEl, selectedColor);
+  modifySquares(touchedEl);
 };
 
 const sketchWithMouse = (event) => {
@@ -101,8 +120,7 @@ const sketchWithMouse = (event) => {
   const isTargetASquare = target && target.classList.contains("grid__square");
 
   if (!isTargetASquare) return;
-  const selectedColor = document.querySelector("#color-picker").value;
-  square.changeColor(target, selectedColor);
+  modifySquares(target);
 };
 
 // render squares on pageload. Amount depends on Html input value
@@ -124,10 +142,27 @@ userInputEl.addEventListener("input", updateGridSizePlaceholder);
 const colorPickerEl = document.querySelector("#color-picker");
 const colorRandomizerEl = document.querySelector("#color-randomizer");
 
-colorPickerEl.addEventListener("click", () => colorMode.set("single-color"));
-colorRandomizerEl.addEventListener("click", () =>
-  colorMode.set("random-color")
-);
+colorPickerEl.addEventListener("click", () => {
+  colorMode.set("single-color");
+  colorMode.activateEl(colorPickerEl, colorRandomizerEl);
+});
+colorRandomizerEl.addEventListener("click", () => {
+  colorMode.set("random-color");
+  colorMode.activateEl(colorRandomizerEl, colorPickerEl);
+});
+
+// update tools
+const penToolEl = document.querySelector("#pen-tool");
+const eraserToolEl = document.querySelector("#eraser-tool");
+
+penToolEl.addEventListener("click", () => {
+  toolMode.set("pen");
+  toolMode.activateEl(penToolEl, eraserToolEl);
+});
+eraserToolEl.addEventListener("click", () => {
+  toolMode.set("eraser");
+  toolMode.activateEl(eraserToolEl, penToolEl);
+});
 
 // clear all squares colors
 const clearAllEl = document.querySelector("#clear-all");
