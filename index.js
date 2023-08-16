@@ -3,10 +3,10 @@ const userInputEl = document.querySelector("#user-grid-input");
 // constructor to create and update different modes
 function ModeConstructor(defaultModeName) {
   let _mode = defaultModeName;
-  this.set = function (modeName) {
+  this.set = function(modeName) {
     _mode = modeName;
   };
-  this.get = function () {
+  this.get = function() {
     return _mode;
   };
 }
@@ -61,6 +61,11 @@ const updateGridLayout = () => {
   renderSquares(userInputNum, totalSquares);
 };
 
+const changeSquareColor = (squareEl) => {
+  const selectedColor = document.querySelector("#color-picker").value;
+  squareEl.style.setProperty("--square-clr", selectedColor);
+};
+
 // simulate mouseover event on touch devices
 // only works on "touchmove" event
 // source: https://gist.github.com/VehpuS/6fd5dca2ea8cd0eb0471
@@ -69,19 +74,17 @@ const sketchWithTouch = (event) => {
   const touchedEl = document.elementFromPoint(touch.clientX, touch.clientY);
   const isTouchedElASquare =
     touchedEl && touchedEl.classList.contains("grid__square");
-  if (!isTouchedElASquare) return;
 
-  const selectedColor = document.querySelector("#color-picker").value;
-  touchedEl.style.setProperty("--square-clr", selectedColor);
+  if (!isTouchedElASquare) return;
+  changeSquareColor(touchedEl);
 };
 
 const sketchWithMouse = (event) => {
   const target = event.target;
   const isTargetASquare = target && target.classList.contains("grid__square");
-  if (!isTargetASquare) return;
 
-  const selectedColor = document.querySelector("#color-picker").value;
-  target.style.setProperty("--square-clr", selectedColor);
+  if (!isTargetASquare) return;
+  changeSquareColor(target);
 };
 
 // render squares on pageload. Amount depends on Html input value
