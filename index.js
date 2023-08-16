@@ -1,5 +1,3 @@
-const userInputEl = document.querySelector("#user-grid-input");
-
 // constructor to create and update different modes
 function ModeConstructor(defaultModeName) {
   let _mode = defaultModeName;
@@ -100,15 +98,16 @@ const sketchWithMouse = (event) => {
 };
 
 // updates the placeholderText beside the user input field
-const updateInputPlaceholderText = () => {
+const updateInputPlaceholderText = (inputEl) => {
   const placeholderEl = document.querySelector("#grid-size-placeholder");
-  placeholderEl.textContent = "x" + userInputEl.value;
+  placeholderEl.textContent = "x" + inputEl.value;
 };
 
-const updateGridLayout = () => {
-  const userInputNum = parseInt(userInputEl.value);
+const updateGridLayout = (inputEl, gridEl) => {
+  console.log(inputEl);
+  const userInputNum = parseInt(inputEl.value);
 
-  if (userInputEl.value === "" || isNaN(userInputNum)) {
+  if (inputEl.value === "" || isNaN(userInputNum)) {
     alert("Please enter a valid number between 1-100");
     return;
   }
@@ -123,7 +122,6 @@ const updateGridLayout = () => {
     return;
   }
 
-  const gridEl = document.querySelector("#grid");
   const squareWidth = gridEl.offsetWidth / userInputNum;
   const totalSquares = Math.pow(userInputNum, 2); // square of user input
 
@@ -137,11 +135,14 @@ gridEl.addEventListener("touchmove", sketchWithTouch);
 gridEl.addEventListener("mouseover", sketchWithMouse);
 
 // user input event listeners
+const userInputEl = document.querySelector("#user-grid-input");
 userInputEl.addEventListener("change", () => {
-  updateGridLayout();
-  updateInputPlaceholderText();
+  updateGridLayout(userInputEl, gridEl);
+  updateInputPlaceholderText(userInputEl);
 });
-userInputEl.addEventListener("input", updateInputPlaceholderText);
+userInputEl.addEventListener("input", () =>
+  updateInputPlaceholderText(userInputEl)
+);
 
 // update color modes
 const colorPickerEl = document.querySelector("#color-picker");
@@ -174,4 +175,4 @@ const clearAllEl = document.querySelector("#clear-all");
 clearAllEl.addEventListener("click", () => square.removeAllColors(gridEl));
 
 // render squares on pageload. Amount depends on Html input value
-updateGridLayout();
+updateGridLayout(userInputEl, gridEl);
