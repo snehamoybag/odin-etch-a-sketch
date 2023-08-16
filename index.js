@@ -54,37 +54,14 @@ function SquareBehaviour() {
 
 const square = new SquareBehaviour();
 
-// updates the placeholderText beside the user input field
-const updateGridSizePlaceholder = () => {
-  const placeholderEl = document.querySelector("#grid-size-placeholder");
-  placeholderEl.textContent = "x" + userInputEl.value;
-};
-
-const updateGridLayout = () => {
-  const userInputNum = parseInt(userInputEl.value);
-
-  if (userInputEl.value === "" || isNaN(userInputNum)) {
-    alert("Please enter a valid number between 1-100");
-    return;
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * letters.length)];
   }
-
-  if (userInputNum <= 0) {
-    alert("Grid can not be smaller than 1x1");
-    return;
-  }
-
-  if (userInputNum > 100) {
-    alert("Due to technical limitations, we only allow a grid upto 100x100");
-    return;
-  }
-
-  const gridEl = document.querySelector("#grid");
-  const squareWidth = gridEl.offsetWidth / userInputNum;
-  const totalSquares = Math.pow(userInputNum, 2); // square of user input
-
-  square.removeAll(gridEl); // remove previous squares
-  square.render(gridEl, squareWidth, totalSquares);
-};
+  return color;
+}
 
 const modifySquares = (el) => {
   if (toolMode.get() === "pen" && colorMode.get() === "single-color") {
@@ -93,8 +70,7 @@ const modifySquares = (el) => {
   }
 
   if (toolMode.get() === "pen" && colorMode.get() === "random-color") {
-    // square.changeColor(el, getRandomColor())
-    console.log("random color node on");
+    square.changeColor(el, getRandomColor());
   }
 
   if (toolMode.get() === "eraser") {
@@ -123,8 +99,37 @@ const sketchWithMouse = (event) => {
   modifySquares(target);
 };
 
-// render squares on pageload. Amount depends on Html input value
-updateGridLayout();
+// updates the placeholderText beside the user input field
+const updateInputPlaceholderText = () => {
+  const placeholderEl = document.querySelector("#grid-size-placeholder");
+  placeholderEl.textContent = "x" + userInputEl.value;
+};
+
+const updateGridLayout = () => {
+  const userInputNum = parseInt(userInputEl.value);
+
+  if (userInputEl.value === "" || isNaN(userInputNum)) {
+    alert("Please enter a valid number between 1-100");
+    return;
+  }
+
+  if (userInputNum <= 0) {
+    alert("Grid can not be smaller than 1x1");
+    return;
+  }
+
+  if (userInputNum > 64) {
+    alert("Due to technical limitations, we only allow a grid upto 64x64");
+    return;
+  }
+
+  const gridEl = document.querySelector("#grid");
+  const squareWidth = gridEl.offsetWidth / userInputNum;
+  const totalSquares = Math.pow(userInputNum, 2); // square of user input
+
+  square.removeAll(gridEl); // remove previous squares
+  square.render(gridEl, squareWidth, totalSquares);
+};
 
 // update grid
 const gridEl = document.querySelector("#grid");
@@ -134,9 +139,9 @@ gridEl.addEventListener("mouseover", sketchWithMouse);
 // user input event listeners
 userInputEl.addEventListener("change", () => {
   updateGridLayout();
-  updateGridSizePlaceholder();
+  updateInputPlaceholderText();
 });
-userInputEl.addEventListener("input", updateGridSizePlaceholder);
+userInputEl.addEventListener("input", updateInputPlaceholderText);
 
 // update color modes
 const colorPickerEl = document.querySelector("#color-picker");
@@ -167,3 +172,6 @@ eraserToolEl.addEventListener("click", () => {
 // clear all squares colors
 const clearAllEl = document.querySelector("#clear-all");
 clearAllEl.addEventListener("click", () => square.removeAllColors(gridEl));
+
+// render squares on pageload. Amount depends on Html input value
+updateGridLayout();
