@@ -24,10 +24,10 @@
     <div class="settings-top">
       <h1 class="settings-top__title">Etch-a-Sketch</h1>
       <div class="flex-group">
-        <label for="color-picker" class="active">
+        <label for="color-picker">
           <span class="sr-only">Pick a color</span>
           <input type="color" id="color-picker" name="color-picker" value="#ffb22c"
-            class="settings-top__color-picker" />
+            class="settings-top__color-picker | active" />
         </label>
         <button id="color-randomizer" class="settings-top__color-randomizer">
           <span class="sr-only">Select Random Colors</span>
@@ -45,18 +45,14 @@
     </div>
     <div class="settings-bottom">
       <div class="flex-group">
-        <label for="pen" class="settings-bottom__tool-label active">
-          <input type="radio" id="pen" name="tool" value="pen" class="settings-bottom__tool settings-bottom__tool--pen"
-            checked />
+        <button id="pen" class="settings-bottom__tool settings-bottom__tool--pen active">
           <i class="fa-solid fa-pen"></i>
           <span class="sr-only">Select Pen</span>
-        </label>
-        <label for="eraser" class="settings-bottom__tool-label | disabled">
-          <input type="radio" id="eraser" name="tool" value="eraser"
-            class="settings-bottom__tool settings-bottom__tool--eraser" />
+        </button>
+        <button id="eraser" class="settings-bottom__tool settings-bottom__tool--eraser">
           <i class="fa-solid fa-eraser"></i>
           <span class="sr-only">Select Eraser</span>
-        </label>
+        </button>
       </div>
       <button id="clear-all" class="settings-bottom__clear-all">
         Clear All

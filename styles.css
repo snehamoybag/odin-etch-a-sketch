@@ -131,19 +131,14 @@ button:active {
   box-shadow: 0 5px 5px hsla(0, 0%, 0%, 0.1) inset;
 }
 
-.settings-bottom__tool-label {
+.settings-bottom__tool {
   --tool-clr: var(--clr-neutral-700);
   font-size: 1.5rem; /* icon size */
+  background-color: transparent;
   color: var(--tool-clr);
-  border-radius: 50%;
-}
-
-.settings-bottom__tool {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: transparent;
   border: none;
+  border-radius: 50%;
+  opacity: 0.5;
 }
 
 .settings-bottom__clear-all {
@@ -209,10 +204,7 @@ button:active {
 
 .active {
   transform: scale(1.15);
-}
-
-.disabled {
-  opacity: 0.5;
+  opacity: 1;
 }
 
 /* TABLET & DESKTOP SCREENS */
