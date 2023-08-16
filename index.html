@@ -22,41 +22,45 @@
   <header></header>
   <main class="main">
     <div class="settings-top">
-      <h1 class="settings-top__title">Etch-a-Sketch</h1>
-      <div class="flex-group">
-        <label for="color-picker">
-          <span class="sr-only">Pick a color</span>
-          <input type="color" id="color-picker" name="color-picker" value="#ffb22c"
-            class="settings-top__color-picker | active" />
-        </label>
-        <button id="color-randomizer" class="settings-top__color-randomizer">
-          <span class="sr-only">Select Random Colors</span>
-        </button>
-        <label for="user-grid-input">
-          <span class="sr-only">Change Grid</span>
-          <input type="number" id="user-grid-input" name="user-grid-input" value="16"
-            class="settings-top__user-input" />
-          <span id="grid-size-placeholder" class="placeholder-text">x16</span>
-        </label>
+      <div class="container | flex-space-between">
+        <h1 class="settings-top__title">Etch-a-Sketch</h1>
+        <div class="flex-group">
+          <label for="color-picker">
+            <span class="sr-only">Pick a color</span>
+            <input type="color" id="color-picker" name="color-picker" value="#ffb22c"
+              class="settings-top__color-picker | active" />
+          </label>
+          <button id="color-randomizer" class="settings-top__color-randomizer">
+            <span class="sr-only">Select Random Colors</span>
+          </button>
+          <label for="user-grid-input">
+            <span class="sr-only">Change Grid</span>
+            <input type="number" id="user-grid-input" name="user-grid-input" value="16"
+              class="settings-top__user-input" />
+            <span id="grid-size-placeholder" class="placeholder-text">x16</span>
+          </label>
+        </div>
       </div>
     </div>
     <div id="grid" class="grid">
       <!-- squares are injected via javascript -->
     </div>
     <div class="settings-bottom">
-      <div class="flex-group">
-        <button id="pen-tool" class="settings-bottom__tool settings-bottom__tool--pen active">
-          <i class="fa-solid fa-pen"></i>
-          <span class="sr-only">Select Pen</span>
-        </button>
-        <button id="eraser-tool" class="settings-bottom__tool settings-bottom__tool--eraser">
-          <i class="fa-solid fa-eraser"></i>
-          <span class="sr-only">Select Eraser</span>
+      <div class="container | flex-space-between">
+        <div class="flex-group">
+          <button id="pen-tool" class="settings-bottom__tool settings-bottom__tool--pen active">
+            <i class="fa-solid fa-pen"></i>
+            <span class="sr-only">Select Pen</span>
+          </button>
+          <button id="eraser-tool" class="settings-bottom__tool settings-bottom__tool--eraser">
+            <i class="fa-solid fa-eraser"></i>
+            <span class="sr-only">Select Eraser</span>
+          </button>
+        </div>
+        <button id="clear-all" class="settings-bottom__clear-all">
+          Clear All
         </button>
       </div>
-      <button id="clear-all" class="settings-bottom__clear-all">
-        Clear All
-      </button>
     </div>
   </main>
   <footer class="footer">
