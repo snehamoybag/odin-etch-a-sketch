@@ -104,7 +104,6 @@ const updateInputPlaceholderText = (inputEl) => {
 };
 
 const updateGridLayout = (inputEl, gridEl) => {
-  console.log(inputEl);
   const userInputNum = parseInt(inputEl.value);
 
   if (inputEl.value === "" || isNaN(userInputNum)) {
