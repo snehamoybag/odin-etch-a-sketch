@@ -3,10 +3,10 @@ const userInputEl = document.querySelector("#user-grid-input");
 // constructor to create and update different modes
 function ModeConstructor(defaultModeName) {
   let _mode = defaultModeName;
-  this.set = function(modeName) {
+  this.set = function (modeName) {
     _mode = modeName;
   };
-  this.get = function() {
+  this.get = function () {
     return _mode;
   };
 }
@@ -16,15 +16,14 @@ const toolMode = new ModeConstructor("pen");
 
 // grid square behaviour constructor
 function SquareBehaviour() {
-  const selectedColor = document.querySelector("#color-picker").value;
-  const createASquare = function(squareWidth) {
+  const createASquare = function (squareWidth) {
     const squareEl = document.createElement("div");
     squareEl.classList.add("grid__square");
     squareEl.style.setProperty("--square-size", `${squareWidth}px`);
     return squareEl;
   };
 
-  this.render = function(parentEl, width, numOfSquares) {
+  this.render = function (parentEl, width, numOfSquares) {
     const squareEl = createASquare(width);
     for (let i = 1; i <= numOfSquares; i++) {
       const clonedSquareEl = squareEl.cloneNode(false); // shallow copy
@@ -32,19 +31,19 @@ function SquareBehaviour() {
     }
   };
 
-  this.removeAll = function(parentEl) {
+  this.removeAll = function (parentEl) {
     const allSquareEls = parentEl.querySelectorAll(".grid__square");
     allSquareEls.forEach((square) => parentEl.removeChild(square));
   };
 
-  this.changeColor = function(squareEl) {
-    squareEl.style.setProperty("--square-clr", selectedColor);
+  this.changeColor = function (squareEl, color) {
+    squareEl.style.setProperty("--square-clr", color);
   };
 
-  this.removeAllColors = function() {
-    const allSquareEls = document.querySelectorAll(".grid__square");
-    allSquareEls.forEach((square) => {
-      square.style.setProperty("--square-clr", "transparent");
+  this.removeAllColors = function (parentEl) {
+    const allSquareEls = parentEl.querySelectorAll(".grid__square");
+    allSquareEls.forEach((squareEl) => {
+      this.changeColor(squareEl, "transparent");
     });
   };
 }
@@ -93,7 +92,8 @@ const sketchWithTouch = (event) => {
     touchedEl && touchedEl.classList.contains("grid__square");
 
   if (!isTouchedElASquare) return;
-  square.changeColor(touchedEl);
+  const selectedColor = document.querySelector("#color-picker").value;
+  square.changeColor(touchedEl, selectedColor);
 };
 
 const sketchWithMouse = (event) => {
@@ -101,11 +101,17 @@ const sketchWithMouse = (event) => {
   const isTargetASquare = target && target.classList.contains("grid__square");
 
   if (!isTargetASquare) return;
-  square.changeColor(target);
+  const selectedColor = document.querySelector("#color-picker").value;
+  square.changeColor(target, selectedColor);
 };
 
 // render squares on pageload. Amount depends on Html input value
 updateGridLayout();
+
+// update grid
+const gridEl = document.querySelector("#grid");
+gridEl.addEventListener("touchmove", sketchWithTouch);
+gridEl.addEventListener("mouseover", sketchWithMouse);
 
 // user input event listeners
 userInputEl.addEventListener("change", () => {
@@ -123,7 +129,6 @@ colorRandomizerEl.addEventListener("click", () =>
   colorMode.set("random-color")
 );
 
-// update grid
-const gridEl = document.querySelector("#grid");
-gridEl.addEventListener("touchmove", sketchWithTouch);
-gridEl.addEventListener("mouseover", sketchWithMouse);
+// clear all squares colors
+const clearAllEl = document.querySelector("#clear-all");
+clearAllEl.addEventListener("click", () => square.removeAllColors(gridEl));
