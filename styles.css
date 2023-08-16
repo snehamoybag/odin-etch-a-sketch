@@ -155,7 +155,7 @@ button:active {
 .grid {
   --grid-bg-clr: var(--clr-neutral-100);
   width: 100%;
-  max-width: 960px;
+  max-width: 1000px;
   aspect-ratio: 1/1;
   background-color: var(--grid-bg-clr);
   display: flex;
