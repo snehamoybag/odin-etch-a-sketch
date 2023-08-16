@@ -14,36 +14,54 @@ function ModeConstructor(defaultModeName) {
 const colorMode = new ModeConstructor("single-color");
 const toolMode = new ModeConstructor("pen");
 
+// grid square behaviour constructor
+function SquareBehaviour() {
+  const selectedColor = document.querySelector("#color-picker").value;
+  const createASquare = function(squareWidth) {
+    const squareEl = document.createElement("div");
+    squareEl.classList.add("grid__square");
+    squareEl.style.setProperty("--square-size", `${squareWidth}px`);
+    return squareEl;
+  };
+
+  this.render = function(parentEl, width, numOfSquares) {
+    const squareEl = createASquare(width);
+    for (let i = 1; i <= numOfSquares; i++) {
+      const clonedSquareEl = squareEl.cloneNode(false); // shallow copy
+      parentEl.appendChild(clonedSquareEl);
+    }
+  };
+
+  this.removeAll = function(parentEl) {
+    const allSquareEls = parentEl.querySelectorAll(".grid__square");
+    allSquareEls.forEach((square) => parentEl.removeChild(square));
+  };
+
+  this.changeColor = function(squareEl) {
+    squareEl.style.setProperty("--square-clr", selectedColor);
+  };
+
+  this.removeAllColors = function() {
+    const allSquareEls = document.querySelectorAll(".grid__square");
+    allSquareEls.forEach((square) => {
+      square.style.setProperty("--square-clr", "transparent");
+    });
+  };
+}
+
+const square = new SquareBehaviour();
+
 // updates the placeholderText beside the user input field
 const updateGridSizePlaceholder = () => {
   const placeholderEl = document.querySelector("#grid-size-placeholder");
   placeholderEl.textContent = "x" + userInputEl.value;
 };
 
-const renderSquares = (squaresPerRow, totalNumOfSquares) => {
-  const gridEl = document.querySelector("#grid");
-  const gridWidth = gridEl.offsetWidth;
-  const squareWidth = gridWidth / squaresPerRow;
-
-  const squareEl = document.createElement("div");
-  squareEl.classList.add("grid__square");
-  squareEl.style.setProperty("--square-size", `${squareWidth}px`);
-
-  // remove prevous squares
-  gridEl.innerHTML = "";
-  for (let i = 1; i <= totalNumOfSquares; i++) {
-    const clonedSquareEl = squareEl.cloneNode(false);
-    gridEl.appendChild(clonedSquareEl);
-  }
-};
-
 const updateGridLayout = () => {
   const userInputNum = parseInt(userInputEl.value);
 
-  if (userInputEl.value === "") {
-    alert(
-      "Input field cannot be empty! Please enter a valid number between 1-100"
-    );
+  if (userInputEl.value === "" || isNaN(userInputNum)) {
+    alert("Please enter a valid number between 1-100");
     return;
   }
 
@@ -57,13 +75,12 @@ const updateGridLayout = () => {
     return;
   }
 
+  const gridEl = document.querySelector("#grid");
+  const squareWidth = gridEl.offsetWidth / userInputNum;
   const totalSquares = Math.pow(userInputNum, 2); // square of user input
-  renderSquares(userInputNum, totalSquares);
-};
 
-const changeSquareColor = (squareEl) => {
-  const selectedColor = document.querySelector("#color-picker").value;
-  squareEl.style.setProperty("--square-clr", selectedColor);
+  square.removeAll(gridEl); // remove previous squares
+  square.render(gridEl, squareWidth, totalSquares);
 };
 
 // simulate mouseover event on touch devices
@@ -76,7 +93,7 @@ const sketchWithTouch = (event) => {
     touchedEl && touchedEl.classList.contains("grid__square");
 
   if (!isTouchedElASquare) return;
-  changeSquareColor(touchedEl);
+  square.changeColor(touchedEl);
 };
 
 const sketchWithMouse = (event) => {
@@ -84,7 +101,7 @@ const sketchWithMouse = (event) => {
   const isTargetASquare = target && target.classList.contains("grid__square");
 
   if (!isTargetASquare) return;
-  changeSquareColor(target);
+  square.changeColor(target);
 };
 
 // render squares on pageload. Amount depends on Html input value
