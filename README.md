@@ -1,6 +1,6 @@
 # Etch-a-Sketch
 
-Hi! this is my implemention of a simple Etch-a-sketch App for [https://www.theodinproject.com](The Odin Project).
+Hi! this is my implemention of a simple Etch-a-sketch App for [The Odin Project](https://www.theodinproject.com).
 Hope you like it :D
 
 ## Features
@@ -23,5 +23,5 @@ Hope you like it :D
 
 ### Useful Resources
 
-- [https://gist.github.com/VehpuS/6fd5dca2ea8cd0eb0471](Link) - Simulate mouseover on tocuhscreen devices
-- [https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment](Link) - Use DocumentFragment to optimize DOM manipulation
+- [Link](https://gist.github.com/VehpuS/6fd5dca2ea8cd0eb0471) - Simulate mouseover on tocuhscreen devices
+- [Link](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) - Use DocumentFragment to optimize DOM manipulation
