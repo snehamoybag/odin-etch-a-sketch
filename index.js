@@ -1,13 +1,13 @@
 // constructor to create and update different modes
 function ModeConstructor(defaultModeName) {
   let _mode = defaultModeName;
-  this.set = function(modeName) {
+  this.set = function (modeName) {
     _mode = modeName;
   };
-  this.get = function() {
+  this.get = function () {
     return _mode;
   };
-  this.activateEl = function(activateEl, deactivateEl) {
+  this.activateEl = function (activateEl, deactivateEl) {
     deactivateEl.classList.remove("active");
     activateEl.classList.add("active");
   };
@@ -18,31 +18,33 @@ const toolMode = new ModeConstructor("pen");
 
 // grid square behaviour constructor
 function SquareBehaviour() {
-  const createASquare = function(squareWidth) {
+  const createASquare = function (squareWidth) {
     const squareEl = document.createElement("div");
     squareEl.classList.add("grid__square");
     squareEl.style.setProperty("--square-size", `${squareWidth}px`);
     return squareEl;
   };
 
-  this.render = function(parentEl, width, numOfSquares) {
+  this.render = function (parentEl, width, numOfSquares) {
+    const documentFragment = document.createDocumentFragment();
     const squareEl = createASquare(width);
     for (let i = 1; i <= numOfSquares; i++) {
       const clonedSquareEl = squareEl.cloneNode(false); // shallow copy
-      parentEl.appendChild(clonedSquareEl);
+      documentFragment.appendChild(clonedSquareEl);
     }
+    parentEl.appendChild(documentFragment);
   };
 
-  this.removeAll = function(parentEl) {
+  this.removeAll = function (parentEl) {
     const allSquareEls = parentEl.querySelectorAll(".grid__square");
     allSquareEls.forEach((square) => parentEl.removeChild(square));
   };
 
-  this.changeColor = function(squareEl, color) {
+  this.changeColor = function (squareEl, color) {
     squareEl.style.setProperty("--square-clr", color);
   };
 
-  this.removeAllColors = function(parentEl) {
+  this.removeAllColors = function (parentEl) {
     const allSquareEls = parentEl.querySelectorAll(".grid__square");
     allSquareEls.forEach((squareEl) => {
       this.changeColor(squareEl, "transparent");
@@ -116,8 +118,8 @@ const updateGridLayout = (inputEl, gridEl) => {
     return;
   }
 
-  if (userInputNum > 64) {
-    alert("Due to technical limitations, we only allow a grid upto 64x64");
+  if (userInputNum > 100) {
+    alert("Due to technical limitations, we only allow a grid upto 100x100");
     return;
   }
 
