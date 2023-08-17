@@ -37,8 +37,6 @@
             <span class="sr-only">Change Grid</span>
             <input type="number" id="user-grid-input" name="user-grid-input" value="16"
               class="settings-top__user-input" />
-            <span id="grid-size-placeholder" class="placeholder-text">x16</span>
-          </label>
         </div>
       </div>
     </div>
@@ -57,22 +55,30 @@
             <span class="sr-only">Select Eraser</span>
           </button>
         </div>
-        <button id="clear-all" class="settings-bottom__clear-all">
-          Clear All
-        </button>
+        <div class="flex-group">
+          <label for="background-picker">
+            <span>Background </span>
+            <input type="color" id="background-picker" name="background-picker" value="#ffffff"
+              class="settings-bottom__bg-picker" />
+          </label>
+          <button id="clear-all" class="settings-bottom__clear-all">
+            Clear
+          </button>
+        </div>
       </div>
     </div>
   </main>
-  <footer class="footer">
+  <footer class=" footer">
     <p>
       Coded by
       <a href="https://github.com/snehamoybag" target="_blank">Snehamoy Bag</a>
     </p>
     <p>
       Project by
-      <a href="https://www.theodinproject.com/dashboard" rel="noopener noreferrer" target="_blank">The Odin Project</a>
+      <a href="https://www.theodinproject.com/dashboard" rel="noopener noreferrer" target="_blank">The Odin
+        Project</a>
     </p>
-  </footer>
+    </span>
 </body>
 
 </html>

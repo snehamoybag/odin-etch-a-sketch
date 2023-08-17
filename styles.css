@@ -77,8 +77,8 @@ button:active {
 }
 
 .settings-top__color-picker {
-  --clr-swatch-border: 1.25px solid var(--clr-neutral-700);
-  --clr-swatch-border-radius: 50%;
+  --swatch-border: 1.25px solid var(--clr-neutral-700);
+  --swatch-border-radius: 50%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -92,13 +92,13 @@ button:active {
 }
 
 .settings-top__color-picker::-webkit-color-swatch {
-  border: var(--clr-swatch-border);
-  border-radius: var(--clr-swatch-border-radius);
+  border: var(--swatch-border);
+  border-radius: var(--swatch-border-radius);
 }
 
 .settings-top__color-picker::-moz-color-swatch {
-  border: var(--clr-swatch-border);
-  border-radius: var(--clr-swatch-border-radius);
+  border: var(--swatch-border);
+  border-radius: var(--swatch-border-radius);
 }
 
 .settings-top__color-randomizer {
@@ -141,10 +141,31 @@ button:active {
   opacity: 0.5;
 }
 
+.settings-bottom label[for="background-picker"],
 .settings-bottom__clear-all {
   font-size: var(--fs-200);
-  padding: 0.5em 1.25em;
+}
+
+.settings-bottom label[for="background-picker"] {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.settings-bottom__bg-picker {
+  background-color: transparent;
+  width: 30px;
+  padding: 0;
+  border-radius: 0;
+}
+
+.settings-bottom__bg-picker,
+.settings-bottom__clear-all {
   border: 1px solid var(--clr-neutral-700);
+}
+
+.settings-bottom__clear-all {
+  padding: 0.5em 1.25em;
 }
 
 .grid {

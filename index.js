@@ -128,6 +128,11 @@ const updateGridLayout = (inputEl, gridEl) => {
   square.render(gridEl, squareWidth, totalSquares);
 };
 
+const updateGridBackground = (gridEl, colorPickerEl) => {
+  const selectedColor = colorPickerEl.value;
+  gridEl.style.setProperty("--grid-bg-clr", selectedColor);
+};
+
 // update grid
 const gridEl = document.querySelector("#grid");
 gridEl.addEventListener("touchmove", sketchWithTouch);
@@ -168,6 +173,12 @@ eraserToolEl.addEventListener("click", () => {
   toolMode.set("eraser");
   toolMode.activateEl(eraserToolEl, penToolEl);
 });
+
+// change grid background color
+const gridBgPickerEl = document.querySelector("#background-picker");
+gridBgPickerEl.addEventListener("change", () =>
+  updateGridBackground(gridEl, gridBgPickerEl)
+);
 
 // clear all squares colors
 const clearAllEl = document.querySelector("#clear-all");
